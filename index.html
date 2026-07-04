@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samuel Gómez — Ingeniero en Computación</title>
+<style>
+  :root{
+    --bg: #0d1117;
+    --bg-panel: #12181f;
+    --border: #23303d;
+    --text: #c9d1d9;
+    --text-dim: #6e7d8c;
+    --green: #39d353;
+    --cyan: #58a6ff;
+    --mono: 'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Consolas, monospace;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--mono);
+    font-size:15px;
+    line-height:1.7;
+  }
+  a{ color:var(--cyan); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  .wrap{ max-width:760px; margin:0 auto; padding:48px 20px 100px; }
+
+  /* Terminal window chrome */
+  .term{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    background:#161b22;
+    border-bottom:1px solid var(--border);
+  }
+  .dot{ width:11px; height:11px; border-radius:50%; }
+  .dot.r{ background:#ff5f56; }
+  .dot.y{ background:#ffbd2e; }
+  .dot.g{ background:#27c93f; }
+  .term-title{ margin-left:8px; color:var(--text-dim); font-size:12px; }
+  .term-body{ padding:28px 26px; }
+
+  .prompt{ color:var(--green); }
+  .path{ color:var(--cyan); }
+  .cmd{ color:var(--text); }
+  .out{ color:var(--text-dim); }
+
+  #typed-name{ color:#fff; font-weight:700; font-size:1.4em; }
+  .cursor{
+    display:inline-block; width:9px; height:1.1em; background:var(--green);
+    margin-left:2px; vertical-align:-2px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .role{ color:var(--text-dim); margin-top:6px; }
+
+  nav{
+    display:flex; gap:22px; margin:30px 0 46px;
+    font-size:13px; color:var(--text-dim);
+  }
+  nav a{ color:var(--text-dim); }
+  nav a:hover{ color:var(--green); text-decoration:none; }
+
+  section{ margin-bottom:52px; }
+  .section-head{
+    color:var(--text-dim); font-size:13px; margin-bottom:14px;
+  }
+  .section-head .prompt{ margin-right:6px; }
+
+  .skills-grid{
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .skill{
+    border:1px solid var(--border);
+    color:var(--text);
+    background:var(--bg-panel);
+    padding:5px 11px;
+    border-radius:4px;
+    font-size:12.5px;
+  }
+  .skill::before{ content:"▹ "; color:var(--green); }
+
+  .card{
+    border:1px solid var(--border);
+    background:var(--bg-panel);
+    border-radius:8px;
+    padding:20px 22px;
+    margin-bottom:14px;
+  }
+  .card h3{
+    margin:0 0 6px; font-size:15px; color:#fff;
+  }
+  .card p{ margin:0; color:var(--text-dim); font-size:13.5px; }
+  .card .tag{ color:var(--green); font-size:12px; margin-top:8px; display:block; }
+
+  .placeholder-card{
+    border:1px dashed var(--border);
+    color:var(--text-dim);
+    padding:20px 22px;
+    border-radius:8px;
+    font-size:13.5px;
+  }
+  .placeholder-card .tag{ color:#e3b341; }
+
+  .contact-list{ list-style:none; padding:0; margin:0; }
+  .contact-list li{ margin-bottom:8px; font-size:13.5px; }
+  .contact-list .k{ color:var(--text-dim); }
+
+  footer{
+    text-align:center; color:var(--text-dim); font-size:12px; margin-top:60px;
+  }
+
+  @media (max-width:600px){
+    .term-body{ padding:20px 18px; }
+    nav{ flex-wrap:wrap; gap:14px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="term">
+    <div class="term-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="term-title">samuel@portfolio: ~</span>
+    </div>
+    <div class="term-body">
+      <div><span class="prompt">$</span> whoami</div>
+      <div id="typed-name"></div>
+      <div class="role">Ingeniero en Computación · Backend &amp; Datos</div>
+      <div class="out" style="margin-top:10px;">Oaxaca, México — disponible remoto</div>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#contact">contact</a>
+    <a href="https://github.com/Ismael-droid-01" target="_blank">github ↗</a>
+  </nav>
+
+  <section id="about">
+    <div class="section-head"><span class="prompt">$</span> cat about.md</div>
+    <p>
+      Ingeniero en Computación con especialidad en Inteligencia Artificial. Experiencia aplicada en desarrollo backend (Python, FastAPI) y ciencia de datos dentro de proyectos de investigación en el INAOE — arquitecturas asíncronas, automatización de pruebas y pipelines de procesamiento de texto para NLP. Cómodo en entornos Linux, construyendo herramientas propias antes de depender de las de otros.
+    </p>
+  </section>
+
+  <section id="skills">
+    <div class="section-head"><span class="prompt">$</span> ls skills/</div>
+    <div class="skills-grid">
+      <span class="skill">Python</span>
+      <span class="skill">FastAPI</span>
+      <span class="skill">C# / .NET</span>
+      <span class="skill">SQL / MySQL</span>
+      <span class="skill">Bash</span>
+      <span class="skill">Linux (Neovim)</span>
+      <span class="skill">Git</span>
+      <span class="skill">Docker</span>
+      <span class="skill">Angular</span>
+      <span class="skill">Machine Learning</span>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head"><span class="prompt">$</span> ls projects/</div>
+
+    <div class="placeholder-card">
+      <strong>// en construcción</strong>
+      <p style="margin-top:8px;">Aún no hay proyectos públicos aquí. Estoy construyendo el primero — vuelve pronto o revisa directamente mi actividad en <a href="https://github.com/Ismael-droid-01" target="_blank">GitHub</a>.</p>
+      <span class="tag">status: in_progress</span>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-head"><span class="prompt">$</span> contact --info</div>
+    <ul class="contact-list">
+      <li><span class="k">email:</span> <a href="mailto:sgomezcruz01@gmail.com">sgomezcruz01@gmail.com</a></li>
+      <li><span class="k">linkedin:</span> <a href="https://www.linkedin.com/in/samuel-ismael-gomez-cruz-0a5756352" target="_blank">/in/samuel-ismael-gomez-cruz</a></li>
+      <li><span class="k">github:</span> <a href="https://github.com/Ismael-droid-01" target="_blank">/Ismael-droid-01</a></li>
+    </ul>
+  </section>
+
+  <footer>~/portfolio $ built with vanilla html/css/js · deployed on github pages</footer>
+</div>
+
+<script>
+  const text = "Samuel Ismael Gómez Cruz";
+  const el = document.getElementById('typed-name');
+  let i = 0;
+  function type(){
+    if(i <= text.length){
+      el.innerHTML = text.slice(0,i) + '<span class="cursor"></span>';
+      i++;
+      setTimeout(type, 45);
+    }
+  }
+  type();
+</script>
+</body>
+</html>
