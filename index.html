@@ -101,8 +101,21 @@
   .card h3{
     margin:0 0 6px; font-size:15px; color:#fff;
   }
-  .card p{ margin:0; color:var(--text-dim); font-size:13.5px; }
+  .card p{ margin:0 0 10px; color:var(--text-dim); font-size:13.5px; }
   .card .tag{ color:var(--green); font-size:12px; margin-top:8px; display:block; }
+  .card .stack{
+    display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 12px;
+  }
+  .card .stack span{
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:2px 8px;
+    border-radius:4px;
+    font-size:11px;
+  }
+  .card .links{ font-size:12.5px; }
+  .card .links a{ margin-right:16px; }
+  .card .links a::before{ content:"→ "; color:var(--green); }
 
   .placeholder-card{
     border:1px dashed var(--border);
@@ -179,9 +192,20 @@
   <section id="projects">
     <div class="section-head"><span class="prompt">$</span> ls projects/</div>
 
+    <div class="card">
+      <h3>Calpulli API</h3>
+      <p>Backend de un sistema de Machine Learning con cifrado homomórfico, desarrollado durante mi servicio social en el INAOE. Implementa una arquitectura CSRM asíncrona basada en colas FIFO, con una suite de 73 pruebas automatizadas (77% de cobertura).</p>
+      <div class="stack">
+        <span>Python</span><span>FastAPI</span><span>Angular</span><span>MySQL</span><span>pytest</span>
+      </div>
+      <div class="links">
+        <a href="https://github.com/sml-daemon/calpulli-api" target="_blank">código</a>
+      </div>
+    </div>
+
     <div class="placeholder-card">
-      <strong>// en construcción</strong>
-      <p style="margin-top:8px;">Aún no hay proyectos públicos aquí. Estoy construyendo el primero — vuelve pronto o revisa directamente mi actividad en <a href="https://github.com/sml-daemon" target="_blank">GitHub</a>.</p>
+      <strong>// próximamente</strong>
+      <p style="margin-top:8px;">Sigo construyendo — el siguiente proyecto está en camino.</p>
       <span class="tag">status: in_progress</span>
     </div>
   </section>
