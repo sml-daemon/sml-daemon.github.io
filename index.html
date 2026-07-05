@@ -38,17 +38,38 @@
     box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
   }
   .term-bar{
-    display:flex; align-items:center; gap:8px;
+    display:flex; align-items:center; justify-content:space-between;
     padding:10px 14px;
     background:#161b22;
     border-bottom:1px solid var(--border);
   }
+  .term-bar-left{ display:flex; align-items:center; gap:8px; }
   .dot{ width:11px; height:11px; border-radius:50%; }
   .dot.r{ background:#ff5f56; }
   .dot.y{ background:#ffbd2e; }
   .dot.g{ background:#27c93f; }
   .term-title{ margin-left:8px; color:var(--text-dim); font-size:12px; }
   .term-body{ padding:28px 26px; }
+
+  /* Lang toggle, styled as a terminal flag */
+  .lang-toggle{
+    font-size:11.5px;
+    color:var(--text-dim);
+    user-select:none;
+  }
+  .lang-toggle button{
+    background:none;
+    border:none;
+    color:var(--text-dim);
+    font-family:var(--mono);
+    font-size:11.5px;
+    cursor:pointer;
+    padding:2px 4px;
+  }
+  .lang-toggle button.active{
+    color:var(--green);
+  }
+  .lang-toggle span.sep{ color:var(--border); }
 
   .prompt{ color:var(--green); }
   .path{ color:var(--cyan); }
@@ -145,14 +166,19 @@
 
   <div class="term">
     <div class="term-bar">
-      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-      <span class="term-title">samuel@portfolio: ~</span>
+      <div class="term-bar-left">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">samuel@portfolio: ~</span>
+      </div>
+      <div class="lang-toggle">
+        <button id="btn-es" class="active" onclick="setLang('es')">ES</button><span class="sep">/</span><button id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
     </div>
     <div class="term-body">
       <div><span class="prompt">$</span> whoami</div>
       <div id="typed-name"></div>
-      <div class="role">Ingeniero en Computación · Backend &amp; Datos</div>
-      <div class="out" style="margin-top:10px;">Oaxaca, México — disponible remoto</div>
+      <div class="role" id="t-role">Ingeniero en Computación · Backend &amp; Datos</div>
+      <div class="out" style="margin-top:10px;" id="t-availability">Oaxaca, México — disponible remoto</div>
     </div>
   </div>
 
@@ -166,7 +192,7 @@
 
   <section id="about">
     <div class="section-head"><span class="prompt">$</span> cat about.md</div>
-    <p>
+    <p id="t-about">
       Me interesa tanto resolver retos técnicos como dominar los conceptos que hacen posibles esas soluciones. Implemento sistemas backend pensados para ser confiables y fáciles de mantener, y disfruto automatizar procesos. Me siento cómodo usando Linux como sistema principal y prefiero construir mis propias herramientas antes que depender de las de otros.
     </p>
   </section>
@@ -194,18 +220,18 @@
 
     <div class="card">
       <h3>Calpulli API</h3>
-      <p>Backend de un sistema de Machine Learning con cifrado homomórfico, desarrollado durante mi servicio social en el INAOE. Implementa una arquitectura CSRM asíncrona basada en colas FIFO, con una suite de 73 pruebas automatizadas (77% de cobertura).</p>
+      <p id="t-project-desc">Backend de un sistema de Machine Learning con cifrado homomórfico, desarrollado durante mi servicio social en el INAOE. Implementa una arquitectura CSRM asíncrona basada en colas FIFO, con una suite de 73 pruebas automatizadas (77% de cobertura).</p>
       <div class="stack">
         <span>Python</span><span>FastAPI</span><span>Angular</span><span>MySQL</span><span>pytest</span>
       </div>
       <div class="links">
-        <a href="https://github.com/sml-daemon/calpulli-api" target="_blank">código</a>
+        <a href="https://github.com/sml-daemon/calpulli-api" target="_blank" id="t-code-link">código</a>
       </div>
     </div>
 
     <div class="placeholder-card">
-      <strong>// próximamente</strong>
-      <p style="margin-top:8px;">Sigo construyendo — el siguiente proyecto está en camino.</p>
+      <strong id="t-placeholder-title">// próximamente</strong>
+      <p style="margin-top:8px;" id="t-placeholder-desc">Sigo construyendo — el siguiente proyecto está en camino.</p>
       <span class="tag">status: in_progress</span>
     </div>
   </section>
@@ -219,7 +245,7 @@
     </ul>
   </section>
 
-  <footer>~/portfolio $ built with vanilla html/css/js · deployed on github pages</footer>
+  <footer id="t-footer">~/portfolio $ built with vanilla html/css/js · deployed on github pages</footer>
 </div>
 
 <script>
@@ -234,6 +260,44 @@
     }
   }
   type();
+
+  const translations = {
+    es: {
+      role: "Ingeniero en Computación · Backend & Datos",
+      availability: "Oaxaca, México — disponible remoto",
+      about: "Me interesa tanto resolver retos técnicos como dominar los conceptos que hacen posibles esas soluciones. Implemento sistemas backend pensados para ser confiables y fáciles de mantener, y disfruto automatizar procesos. Me siento cómodo usando Linux como sistema principal y prefiero construir mis propias herramientas antes que depender de las de otros.",
+      projectDesc: "Backend de un sistema de Machine Learning con cifrado homomórfico, desarrollado durante mi servicio social en el INAOE. Implementa una arquitectura CSRM asíncrona basada en colas FIFO, con una suite de 73 pruebas automatizadas (77% de cobertura).",
+      codeLink: "código",
+      placeholderTitle: "// próximamente",
+      placeholderDesc: "Sigo construyendo — el siguiente proyecto está en camino.",
+      footer: "~/portfolio $ construido con html/css/js · desplegado en github pages",
+    },
+    en: {
+      role: "Computer Engineer · Backend & Data",
+      availability: "Oaxaca, Mexico — available remote",
+      about: "I care as much about solving technical challenges as I do about mastering the concepts behind the solutions. I build backend systems meant to be reliable and easy to maintain, and I enjoy automating processes. I'm comfortable using Linux as my main system, and I'd rather build my own tools than depend on someone else's.",
+      projectDesc: "Backend for a Machine Learning system with homomorphic encryption, built during my social service term at INAOE. Implements an asynchronous CSRM architecture based on FIFO queues, with a suite of 73 automated tests (77% coverage).",
+      codeLink: "code",
+      placeholderTitle: "// coming soon",
+      placeholderDesc: "Still building — the next project is on its way.",
+      footer: "~/portfolio $ built with vanilla html/css/js · deployed on github pages",
+    }
+  };
+
+  function setLang(lang){
+    const t = translations[lang];
+    document.getElementById('t-role').textContent = t.role;
+    document.getElementById('t-availability').textContent = t.availability;
+    document.getElementById('t-about').textContent = t.about;
+    document.getElementById('t-project-desc').textContent = t.projectDesc;
+    document.getElementById('t-code-link').textContent = t.codeLink;
+    document.getElementById('t-placeholder-title').textContent = t.placeholderTitle;
+    document.getElementById('t-placeholder-desc').textContent = t.placeholderDesc;
+    document.getElementById('t-footer').textContent = t.footer;
+    document.documentElement.lang = lang;
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  }
 </script>
 </body>
 </html>
